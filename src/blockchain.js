@@ -5,6 +5,7 @@
     // first import the files we need
     const Consensus = require('./consensus')
     const Utils = require("./utils");
+    const parse = require('url-parse');
 
     // constructor -- generate genesis block 
     function Blockchain(consensus, blocks) {
@@ -12,6 +13,7 @@
         if (blocks) {
             this.blocks = blocks;
         }
+        this.peers = new Set(); // list of unique peers in the network
         this.consensus = consensus;
         //Create the genesis block
         this.newBlock("I am genesis!")
@@ -63,6 +65,13 @@
         }
 
         return true;
+    }
+
+    // Each node in the network has its own express endpoints and we use the url-parse package to parse the peer and add its host to the peers set
+    Blockchain.prototype.registerPeer = function (address) {
+        const host = parse(address).host;
+        this.peers.add(host);
+        console.log("Registered peer: " + host)
     }
 
     module.exports = Blockchain;
