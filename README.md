@@ -1,11 +1,11 @@
 # BlockChain_MiniDemo
 
 ### Set up
-    ```
-    npm install
-    npm install crypto-js --save
-    npm install mocha --save   //(point to node_modules dir)
-    ```
+```
+npm install
+npm install crypto-js --save
+npm install mocha --save   //(point to node_modules dir)
+```
 
 ### Testing (Blockchain)
 -- point to root dir
