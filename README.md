@@ -28,3 +28,50 @@ Each node in the network has its own express endpoints and we use the url-parse 
 ```
 npm install url-parse --save
 ```
+
+### Testing (Network)
+In order to test the blockchain network we need to be able to connect to the API over HTTP. **curl** is used in this tutorial, *Postman* also works.
+
+* start the server
+```
+node src/server.js
+```
+Should start successfully a server listening on port 5000.
+
+* mine a new block
+call the **/mine** endpoint.In a new terminal tab, run the following curl command: 
+```
+curl -X POST "localhost:5000/mine" -H 'Content-Type: application/json' -d'
+{
+    "data": "Mine block no 1"
+}
+'
+```
+* use /blocks endpoint to confirm blocks mined 
+```
+curl -X GET "localhost:5000/blocks" -H 'Content-Type: application/json'
+```
+So far we have a node running on a machine with 2 blocks (or more, depending on how many times the curl POST command was ran)
+
+* start up another server on a different port
+```
+node src/server.js port=5001
+```
+
+* add the first node to the new server as a peer using the **/peers/add** endpoint
+```
+curl -X POST "localhost:5001/peers/add"  -H 'Content-Type: application/json' -d'
+{
+    "peers":  ["http://localhost:5000"]
+}
+'
+```
+
+* mine a new block on the second node
+```
+curl -X POST "localhost:5001/mine" -H 'Content-Type: application/json' -d'
+{
+    "data": "Mine block on second server"
+}
+'
+```
