@@ -1,7 +1,8 @@
 # BlockChain_MiniDemo
 
 ### Reference
- https://kauri.io/article/92034a0c23ed4cb4a6ca959e0a4b78b9?utm_campaign=ConsenSys%20Newsletter&utm_source=hs_email&utm_medium=email&utm_content=72818337&_hsenc=p2ANqtz-97ZLpmpSnvFmkouThG-CZUBBFpaq7Bp06gGqzfqEPthg6DK7tGrkPdvAecTpAD5bXWl7kwAOIlJyQkYEpMpkd_dVa0b1rUbt9b4Zanw1FegeVfHyw&_hsmi=72818337#settingup
+[kauri.io tutorial article](
+ https://kauri.io/article/92034a0c23ed4cb4a6ca959e0a4b78b9?utm_campaign=ConsenSys%20Newsletter&utm_source=hs_email&utm_medium=email&utm_content=72818337&_hsenc=p2ANqtz-97ZLpmpSnvFmkouThG-CZUBBFpaq7Bp06gGqzfqEPthg6DK7tGrkPdvAecTpAD5bXWl7kwAOIlJyQkYEpMpkd_dVa0b1rUbt9b4Zanw1FegeVfHyw&_hsmi=72818337#settingup)
 
 ### Set up
 ```
