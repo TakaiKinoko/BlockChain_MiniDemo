@@ -74,5 +74,16 @@
         console.log("Registered peer: " + host)
     }
 
+    // delegate the responsibility of checking which node has the longest chain to the consensus class, passing it to the list of peers and the length of the blockchain
+    Blockchain.prototype.checkLongestChain = async function () {
+        let result = await this.consensus.checkLongestChain(this.peers, this.blocks.length);
+        if (result.newBlocks) {
+            this.blocks = result.newBlocks;
+            console.log("Chain replaced: " + this.blocks)
+        }
+        // must return the result of the call whether the node is the longest chain or not
+        return result.isLongestChain;
+    }
+
     module.exports = Blockchain;
 })();

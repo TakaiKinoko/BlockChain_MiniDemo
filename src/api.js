@@ -87,6 +87,26 @@
             res.status(201).send(response);
         });
 
+        // need to make cal to peers API to get their block info, thus /peers/check is async so the application awaits the result before responding
+        app.get('/peers/check', async (req, res) => {
+            let response;
+            let result = await blockchain.checkLongestChain();
+            if (result) {
+                response = {
+                    message: 'Chain is longest',
+                    newChain: blockchain.blocks
+                };
+            }
+            else {
+                response = {
+                    message: 'Chain updated',
+                    newChain: blockchain.blocks
+                };
+            }
+            res.send(response);
+
+        });
+
         return app;
     }
 

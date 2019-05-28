@@ -75,3 +75,64 @@ curl -X POST "localhost:5001/mine" -H 'Content-Type: application/json' -d'
 }
 '
 ```
+
+* now we have nodes in the network, where the second one is a fork from the genesis block. Time to move onward to the **consensus** mechanism.
+
+### Consensus 
+**longest valid chain rule** in the network the valid chain with the most work is recognised as the main chain. All new blocks would thus be added to this by any other node in the network
+Add: 
+1. A new endpoint to our API /peers/check
+1. A new function to our blockchain class checkLongestChain which is called via the API and return true if our set of blocks is the longest chain
+1. A new function in our consensus implementation checkLongestChain which called the /blocks endpoint for each peer and checks the length of their chain
+
+Install the node-fetch package
+```
+npm install node-fetch --save
+```
+
+### More Testing 
+Start node 1 server: 
+```
+node src/server.js
+```
+
+Mine a few blocks (say 2):
+```
+curl -X POST "localhost:5000/mine" -H 'Content-Type: application/json' -d'
+{
+    "data": "Mine a block on node 1"
+}
+'
+```
+
+Start node 2 server:
+```
+node src/server.js port=5001
+```
+Add nodes as peers of each other 
+```
+curl -X POST "localhost:5000/peers/add"  -H 'Content-Type: application/json' -d'
+{
+    "peers":  ["http://localhost:5001"]
+}
+'
+curl -X POST "localhost:5001/peers/add"  -H 'Content-Type: application/json' -d'
+{
+    "peers":  ["http://localhost:5000"]
+}
+'
+```
+
+Call /peers/check on node 2: (this will result in the chain on node 2 being replaced with the chain on node 1)
+```
+curl -X GET "localhost:5001/peers/check" 
+```
+
+Mine a new block on node 2 would now mean adding block number 4
+```
+curl -X POST "localhost:5001/mine" -H 'Content-Type: application/json' -d'
+{
+    "data": "Mine a block on node 2"
+}
+'
+```
